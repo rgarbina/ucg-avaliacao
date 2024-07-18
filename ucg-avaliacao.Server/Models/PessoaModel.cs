@@ -1,4 +1,7 @@
-﻿namespace UCG.Service.Avaliacao.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace UCG.Service.Avaliacao.Models
 {
     public class PessoaModel
     {
@@ -8,6 +11,9 @@
         public string CPF { get; set; }
         public string RG { get; set; }
 
-        public ICollection<DependenteModel> Dependentes { get; set; }
+        [NotMapped]
+        public string[] NomeDependentes { get; set; } = null;
+
+        public virtual ICollection<DependenteModel> Dependentes { get; set; }
     }
 }

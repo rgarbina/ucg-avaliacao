@@ -3,7 +3,7 @@ import { PessoaService } from '../services/pessoa-service';
 import { pessoa } from '../model/pessoa-model';
 import { Guid } from 'guid-typescript';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pessoa-cadastrar',
@@ -15,7 +15,7 @@ export class CadastrarPessoaComponent implements OnInit {
   public pessoaId: string = Guid.EMPTY;
   public pessoa: pessoa | null = null;
   public dependentes: any[] = [];
-  public pessoaForm = new FormControl('');  
+  public pessoaForm: FormGroup = new FormGroup(null);  
 
   constructor(
     private _pessoaService: PessoaService,
@@ -25,7 +25,10 @@ export class CadastrarPessoaComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.pessoaForm = new FormGroup({
+      pessoaId: new FormControl(null),
+      Nome: new FormControl("", [Validators.required]),
+    })    
  
   }
 

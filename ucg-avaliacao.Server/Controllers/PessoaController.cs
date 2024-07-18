@@ -18,7 +18,7 @@ namespace UCG.Service.Avaliacao.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PessoaModel>> BuscarPorId(Guid id)
         {
-            var r = await _pessoaRepositorio.BuscarPorId(id);
+            var r = await _pessoaRepositorio.BuscarPorIdDetalhe(id);
             return Ok(r);
         }
 

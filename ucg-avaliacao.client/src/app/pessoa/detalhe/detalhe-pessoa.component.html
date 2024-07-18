@@ -4,11 +4,20 @@
 
 <ng-container *ngIf="hasResult">
 
-    <p>
-        Id: {{ pessoa?.id }} <br>
-        Nome: {{ pessoa?.nome }}
-    </p>
-
+  <p>
+    Id: {{ pessoa?.id }} <br>
+    Nome: {{ pessoa?.nome }}<br>
+    Data de Nascimento: {{ pessoa?.nascimento }}<br>
+    CPF: {{ pessoa?.cpf }}<br>
+    RG: {{ pessoa?.rg }}<br>
+  </p>
+  <p *ngIf="hasResultDependente">
+    <b>Dependentes</b>
+    <br>
+    <span *ngFor="let dependente of pessoa?.nomeDependentes">
+      Nome: {{ dependente }} <br>
+    </span>
+  </p>
 </ng-container>
 
 <div>

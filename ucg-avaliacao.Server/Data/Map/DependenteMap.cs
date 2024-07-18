@@ -12,6 +12,7 @@ namespace UCG.Service.Avaliacao.Data.Map
         {
             builder.ToTable("dependente", "dbo");
             builder.HasKey(x => new { x.IdPessoa, x.IdDependente });
+            builder.HasOne(x => x.Pessoa).WithMany(x => x.Dependentes).HasForeignKey(x=> x.IdDependente);
         }
     }
 }

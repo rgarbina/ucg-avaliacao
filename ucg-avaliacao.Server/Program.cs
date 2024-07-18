@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using UCG.Service.Avaliacao.Data;
 using UCG.Service.Avaliacao.Repositorios.Interfaces;
 using ucg_avaliacao.Server.Repositorios;
@@ -12,7 +13,11 @@ namespace UCG.Service.Avaliacao
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                {
+                    x.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddEntityFrameworkSqlServer()

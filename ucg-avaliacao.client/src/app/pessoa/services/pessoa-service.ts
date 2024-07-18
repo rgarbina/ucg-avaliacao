@@ -19,4 +19,8 @@ export class PessoaService {
     postAdd(pessoa: pessoa) {
       return this.http.post<pessoa>(`/api/pessoa/`, pessoa);
     }
+
+    postRemover(id: Guid) {
+      return this.http.post<pessoa>(`/api/remover?id=` + id, id);
+    }
 }

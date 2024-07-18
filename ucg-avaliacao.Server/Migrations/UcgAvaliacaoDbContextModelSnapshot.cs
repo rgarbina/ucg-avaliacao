@@ -30,17 +30,9 @@ namespace ucg_avaliacao.Server.Migrations
                     b.Property<Guid>("IdDependente")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DependenteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PessoaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("IdPessoa", "IdDependente");
 
-                    b.HasIndex("DependenteId");
-
-                    b.HasIndex("PessoaId");
+                    b.HasIndex("IdDependente");
 
                     b.ToTable("dependente", "dbo");
                 });
@@ -66,7 +58,6 @@ namespace ucg_avaliacao.Server.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("RG")
-                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -77,19 +68,11 @@ namespace ucg_avaliacao.Server.Migrations
 
             modelBuilder.Entity("UCG.Service.Avaliacao.Models.DependenteModel", b =>
                 {
-                    b.HasOne("UCG.Service.Avaliacao.Models.PessoaModel", "Dependente")
-                        .WithMany()
-                        .HasForeignKey("DependenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("UCG.Service.Avaliacao.Models.PessoaModel", "Pessoa")
                         .WithMany("Dependentes")
-                        .HasForeignKey("PessoaId")
+                        .HasForeignKey("IdDependente")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Dependente");
 
                     b.Navigation("Pessoa");
                 });

@@ -15,37 +15,65 @@ namespace ucg_avaliacao.Server.Repositorios
 
         public async Task<PessoaModel?> BuscarPorId(Guid id) => await _dbContext.Pessoa.FirstOrDefaultAsync(x => x.Id == id);
 
+        public async Task<PessoaModel?> BuscarPorIdDetalhe(Guid id)
+        {
+            var detalhePessoa = await _dbContext.Pessoa.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var listDependentes = await _dbContext.Dependente.Where(w => w.IdPessoa == id).ToListAsync();
+
+            if (listDependentes.Any())
+            {
+                foreach (var dependente in listDependentes)
+                {
+                    dependente.Dependente = await _dbContext.Pessoa.AsNoTracking().FirstOrDefaultAsync(x => x.Id == dependente.IdDependente);
+                }
+
+                detalhePessoa.NomeDependentes = listDependentes.Select(s => s.Dependente.Nome).ToArray();
+            }
+
+            return detalhePessoa;
+        }
+
         public async Task<List<PessoaModel>> BuscarTodasAsPessoas()
         {
             return await _dbContext.Pessoa.AsNoTracking().ToListAsync();
         }
 
-        public async Task<ICollection<DependenteModel>> AdicionarEditarDependente(PessoaModel paramPessoaModel)
+        public async Task<ICollection<DependenteModel>> AdicionarEditarDependente(Guid idPessoa, ICollection<DependenteModel> collectionDependentes)
         {
-            if (paramPessoaModel.Dependentes.Any())
+            if (collectionDependentes.Any())
             {
-                await RemoverDependente(paramPessoaModel.Id);
+                var arrayDependentes = collectionDependentes.Select(s => s.IdDependente).ToArray();
 
-                foreach (var dependente in paramPessoaModel.Dependentes)
+                await RemoverDependente(idPessoa);
+
+                foreach (var dependente in arrayDependentes)
                 {
                     _dbContext.Dependente.Add(new DependenteModel
                     {
-                        IdPessoa = paramPessoaModel.Id,
-                        IdDependente = dependente.IdPessoa
+                        IdPessoa = idPessoa,
+                        IdDependente = dependente
                     });
                 }
 
                 await _dbContext.SaveChangesAsync();
             }
 
-            return paramPessoaModel.Dependentes;
+            return collectionDependentes;
         }
 
         public async Task<PessoaModel> CadastrarPessoa(PessoaModel paramPessoaModel)
         {
-            await _dbContext.Pessoa.AddAsync(paramPessoaModel);
+            var oPessoa = new PessoaModel()
+            {
+                Nome = paramPessoaModel.Nome,
+                Nascimento = paramPessoaModel.Nascimento,
+                CPF = paramPessoaModel.CPF,
+                RG = paramPessoaModel.RG
+            };
+
+            await _dbContext.Pessoa.AddAsync(oPessoa);
             await _dbContext.SaveChangesAsync();
-            await AdicionarEditarDependente(paramPessoaModel);
+            await AdicionarEditarDependente(oPessoa.Id, paramPessoaModel.Dependentes);
 
             return paramPessoaModel;
         }
@@ -58,7 +86,7 @@ namespace ucg_avaliacao.Server.Repositorios
             oPessoa.Nascimento = paramPessoaModel.Nascimento;
             oPessoa.CPF = paramPessoaModel.CPF;
             oPessoa.RG = paramPessoaModel.RG;
-            await AdicionarEditarDependente(paramPessoaModel);
+            await AdicionarEditarDependente(oPessoa.Id, paramPessoaModel.Dependentes);
 
             await _dbContext.SaveChangesAsync();
 
@@ -79,7 +107,6 @@ namespace ucg_avaliacao.Server.Repositorios
         {
             var listDependentes = _dbContext.Dependente.Where(w => w.IdPessoa == idPessoa);
             _dbContext.Dependente.RemoveRange(listDependentes);
-            await RemoverDependente(idPessoa);
             await _dbContext.SaveChangesAsync();
 
             return await listDependentes.ToListAsync();

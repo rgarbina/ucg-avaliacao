@@ -12,8 +12,8 @@ using UCG.Service.Avaliacao.Data;
 namespace ucg_avaliacao.Server.Migrations
 {
     [DbContext(typeof(UcgAvaliacaoDbContext))]
-    [Migration("20240718131031_Pessoa_Dependentes")]
-    partial class Pessoa_Dependentes
+    [Migration("20240718202722_InitialDb")]
+    partial class InitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,17 +33,9 @@ namespace ucg_avaliacao.Server.Migrations
                     b.Property<Guid>("IdDependente")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DependenteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PessoaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("IdPessoa", "IdDependente");
 
-                    b.HasIndex("DependenteId");
-
-                    b.HasIndex("PessoaId");
+                    b.HasIndex("IdDependente");
 
                     b.ToTable("dependente", "dbo");
                 });
@@ -57,7 +49,8 @@ namespace ucg_avaliacao.Server.Migrations
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("datetime2");
@@ -68,8 +61,8 @@ namespace ucg_avaliacao.Server.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("RG")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 
@@ -78,19 +71,11 @@ namespace ucg_avaliacao.Server.Migrations
 
             modelBuilder.Entity("UCG.Service.Avaliacao.Models.DependenteModel", b =>
                 {
-                    b.HasOne("UCG.Service.Avaliacao.Models.PessoaModel", "Dependente")
-                        .WithMany()
-                        .HasForeignKey("DependenteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("UCG.Service.Avaliacao.Models.PessoaModel", "Pessoa")
                         .WithMany("Dependentes")
-                        .HasForeignKey("PessoaId")
+                        .HasForeignKey("IdDependente")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Dependente");
 
                     b.Navigation("Pessoa");
                 });

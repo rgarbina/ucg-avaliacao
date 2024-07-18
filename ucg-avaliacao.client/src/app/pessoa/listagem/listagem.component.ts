@@ -38,6 +38,18 @@ export class ListagemPessoaComponent implements OnInit {
     ).subscribe();
   }
 
+  removerPessoa(id: Guid) {
+    this._pessoaService.postRemover(id).pipe(
+      tap(result => {
+        location.reload();
+      }),
+      catchError(error => {
+        console.error(error);
+        return of([]);
+      })
+    ).subscribe();
+  }
+
   visualizar(id: Guid) {
     this.router.navigate(["visualizar/" + id], { relativeTo: this.route });
   }
@@ -46,8 +58,10 @@ export class ListagemPessoaComponent implements OnInit {
     alert('Editar não implementado!');
   }
 
-  excluir() {
-    alert('Excluir não implementado!');
+  excluir(oPessoa: pessoa) {
+    if (confirm("Quer Remover?" + oPessoa.nome)) {
+      this.removerPessoa(oPessoa.id);
+    }
   }
 
   cadastrar() {

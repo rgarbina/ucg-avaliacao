@@ -40,4 +40,8 @@ export class DetalhePessoaComponent implements OnInit {
   get hasResult() {
     return this.pessoa;
   }
+
+  get hasResultDependente() {
+    return this.pessoa?.nomeDependentes;
+  }
 }
