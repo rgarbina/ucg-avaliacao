@@ -5,19 +5,18 @@ import { Guid } from "guid-typescript";
 
 @Injectable()
 export class PessoaService {
-  readonly backUrl = 'https://localhost:44359'
 
   constructor(private http: HttpClient) { }
 
     getTodas() {
-      return this.http.get<pessoa[]>(this.backUrl+'/api/pessoa/todas');
+      return this.http.get<pessoa[]>('/api/pessoa/todas');
     }
 
     getPorId(id: Guid) {
-      return this.http.get<pessoa>(this.backUrl +`/api/pessoa/${id}`);
+      return this.http.get<pessoa>(`/api/pessoa/${id}`);
     }
 
     postAdd(pessoa: pessoa) {
-      return this.http.post<pessoa>(this.backUrl + `/api/pessoa/`, pessoa);
+      return this.http.post<pessoa>(`/api/pessoa/`, pessoa);
     }
 }
