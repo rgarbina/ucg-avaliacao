@@ -1,0 +1,27 @@
+<p>Listagem de pessoas.</p>
+
+<p *ngIf="!hasResult"><em>Carregando... Atualize assim que o back-end do ASP.NET for iniciado.</em></p>
+
+<ng-container *ngIf="hasResult">
+  <table >
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pessoa of pessoas">
+        <td>{{ pessoa.nome }}</td>
+        <td>
+          <i class="botao fa-solid fa-eye" (click)="visualizar(pessoa.id)"></i>
+          <i class="botao fa-solid fa-pen-to-square" (click)="editar()"></i>
+          <i class="botao fa-solid fa-circle-xmark" (click)="excluir()"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<p><button (click)="cadastrar()">Cadastrar</button></p>
+

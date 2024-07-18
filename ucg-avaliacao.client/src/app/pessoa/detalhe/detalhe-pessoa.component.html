@@ -1,0 +1,19 @@
+<p>Visualização da pessoa.</p>
+
+<p *ngIf="!hasResult"><em>Pessoa não encontrada.</em></p>
+
+<ng-container *ngIf="hasResult">
+
+    <p>
+        Id: {{ pessoa?.id }} <br>
+        Nome: {{ pessoa?.nome }}
+    </p>
+
+</ng-container>
+
+<div>
+    <a href="#" class="btn-voltar" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+        Voltar
+    </a>
+</div>

@@ -1,0 +1,38 @@
+th, td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.botao {
+    color: #00995d;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0px 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px; 
+  }
+  
+  .botao:hover {
+    color: #004e4c;
+  }
+  
+  .botao:active {
+    color: #b1d34b;
+  }
+
+  .index-logo {
+    filter: sepia(0%) saturate(100%) brightness(100%) contrast(100%);
+    width: 50%;
+    max-width: 15rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4rem;
+}
