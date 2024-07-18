@@ -4,6 +4,8 @@ import { PessoaRoutingModule } from './pessoa.routing.module';
 import { PessoaService } from './services/pessoa-service';
 import { CommonModule } from '@angular/common';
 import { DetalhePessoaComponent } from './detalhe/detalhe-pessoa.component';
+import { CadastrarPessoaComponent } from './cadastrar/cadastrar-pessoa.component';
+
 import { RouterModule } from '@angular/router';
 
 
@@ -15,12 +17,14 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     ListagemPessoaComponent,
-    DetalhePessoaComponent
+    DetalhePessoaComponent,
+    CadastrarPessoaComponent
   ],
   providers: [PessoaService],
   exports: [],
   bootstrap: [
-    ListagemPessoaComponent
+    ListagemPessoaComponent,
+    CadastrarPessoaComponent
   ]
 })
 

@@ -12,10 +12,12 @@ namespace UCG.Service.Avaliacao.Data
         }
 
         public DbSet<PessoaModel> Pessoa { get; set; }
+        public DbSet<DependenteModel> Dependente { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PessoaMap());
+            modelBuilder.ApplyConfiguration(new DependenteMap());
 
             base.OnModelCreating(modelBuilder);
         }

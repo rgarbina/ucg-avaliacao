@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListagemPessoaComponent } from './listagem/listagem.component';
 import { DetalhePessoaComponent } from './detalhe/detalhe-pessoa.component';
+import { CadastrarPessoaComponent } from './cadastrar/cadastrar-pessoa.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'visualizar/:id',
         component: DetalhePessoaComponent
+    },
+    {
+      path: 'cadastrar/',
+      component: CadastrarPessoaComponent
     }
 ];
 

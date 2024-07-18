@@ -28,5 +28,26 @@ namespace UCG.Service.Avaliacao.Controllers
             var r = await _pessoaRepositorio.BuscarTodasAsPessoas();
             return Ok(r);
         }
+
+        [HttpPost("adicionar")]
+        public async Task<ActionResult<List<PessoaModel>>> CadastrarPessoa(PessoaModel pessoa)
+        {
+            var r = await _pessoaRepositorio.CadastrarPessoa(pessoa);
+            return Ok(r);
+        }
+
+        [HttpPost("editar")]
+        public async Task<ActionResult<List<PessoaModel>>> EditarPessoa(PessoaModel pessoa)
+        {
+            var r = await _pessoaRepositorio.EditarPessoa(pessoa);
+            return Ok(r);
+        }
+
+        [HttpPost("remover")]
+        public async Task<ActionResult<List<PessoaModel>>> RemoverPessoa(Guid id)
+        {
+            var r = await _pessoaRepositorio.RemoverPessoa(id);
+            return Ok(r);
+        }
     }
 }

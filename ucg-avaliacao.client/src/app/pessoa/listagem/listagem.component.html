@@ -7,12 +7,16 @@
     <thead>
       <tr>
         <th>Nome</th>
+        <th>Data de Nascimento</th>
+        <!--<th>CPF</th>-->
         <th>ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let pessoa of pessoas">
         <td>{{ pessoa.nome }}</td>
+        <!--<td>{{ pessoa.nascimento }}</td>-->
+        <!--<td>{{ pessoa.CPF }}</td>-->
         <td>
           <i class="botao fa-solid fa-eye" (click)="visualizar(pessoa.id)"></i>
           <i class="botao fa-solid fa-pen-to-square" (click)="editar()"></i>

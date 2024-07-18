@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UCG.Service.Avaliacao.Data;
 
@@ -11,9 +12,11 @@ using UCG.Service.Avaliacao.Data;
 namespace ucg_avaliacao.Server.Migrations
 {
     [DbContext(typeof(UcgAvaliacaoDbContext))]
-    partial class UcgAvaliacaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718131031_Pessoa_Dependentes")]
+    partial class Pessoa_Dependentes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,8 +57,7 @@ namespace ucg_avaliacao.Server.Migrations
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Nascimento")
                         .HasColumnType("datetime2");
@@ -67,8 +69,7 @@ namespace ucg_avaliacao.Server.Migrations
 
                     b.Property<string>("RG")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

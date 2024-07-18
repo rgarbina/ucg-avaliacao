@@ -28,6 +28,7 @@ export class ListagemPessoaComponent implements OnInit {
   getPessoas() {
     this._pessoaService.getTodas().pipe(
       tap(result => {
+        console.log(result);
         this.pessoas = result;
       }),
       catchError(error => {
@@ -50,7 +51,7 @@ export class ListagemPessoaComponent implements OnInit {
   }
 
   cadastrar() {
-    alert('Cadastrar não implementado!');
+    this.router.navigateByUrl("cadastrar/", { state: { redirect: "cadastrar/" } });
   }
 
   get hasResult() {

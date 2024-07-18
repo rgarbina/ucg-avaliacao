@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UCG.Service.Avaliacao.Data;
 
@@ -11,9 +12,11 @@ using UCG.Service.Avaliacao.Data;
 namespace ucg_avaliacao.Server.Migrations
 {
     [DbContext(typeof(UcgAvaliacaoDbContext))]
-    partial class UcgAvaliacaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718151804_Pessoa_Doc_MaxLength")]
+    partial class Pessoa_Doc_MaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
